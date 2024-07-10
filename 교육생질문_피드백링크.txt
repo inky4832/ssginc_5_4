@@ -18,3 +18,8 @@ https://aws.amazon.com/ko/free/ai/
 
  ## naver
 https://api-fin.ncloud-docs.com/docs/home
+
+
+
+# SSG 케이스 분석
+https://blog.naver.com/ameliejeong/223505593627
