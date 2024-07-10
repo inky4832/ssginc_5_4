@@ -21,5 +21,8 @@ https://api-fin.ncloud-docs.com/docs/home
 
 
 
-# SSG 케이스 분석
+# 케이스 분석1 - SSG 
 https://blog.naver.com/ameliejeong/223505593627
+
+# 케이스 분석2 - 마켓컬리
+https://blog.naver.com/ameliejeong/223496701695
