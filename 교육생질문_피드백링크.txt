@@ -20,12 +20,12 @@ https://aws.amazon.com/ko/free/ai/
 https://api-fin.ncloud-docs.com/docs/home
 
 
-
-# 케이스 분석1 - SSG 
+# 케이스 분석 샘플
+## 케이스 분석1 - SSG 
 https://blog.naver.com/ameliejeong/223505593627
 
-# 케이스 분석2 - 마켓컬리
+## 케이스 분석2 - 마켓컬리
 https://blog.naver.com/ameliejeong/223496701695
 
-# 케이스 분석3 - 쿠팡
+## 케이스 분석3 - 쿠팡
 https://blog.naver.com/ameliejeong/223488884290
