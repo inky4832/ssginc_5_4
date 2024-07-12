@@ -29,3 +29,6 @@ https://blog.naver.com/ameliejeong/223496701695
 https://blog.naver.com/ameliejeong/223488884290
 
 //////////////////////////////////////////////////////////////////////////////////////
+# QR코드 + Firebase 연동
+## 안드로이드 - QR코드 스캔하여 Firebase Realtime Database에 저장
+https://seopseop911.tistory.com/37
