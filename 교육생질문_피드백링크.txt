@@ -35,3 +35,12 @@ https://seopseop911.tistory.com/37
 
 ## Firebase & Spring-boot 연동
 https://data-make.tistory.com/768
+
+//////////////////////////////////////////////////////////////////////////////////////
+# 결제연동 API 제공
+
+## 부트페이
+https://www.bootpay.co.kr/
+
+## 카카오페이
+https://developers.kakaopay.com/docs/getting-started/basic/developers-intro
