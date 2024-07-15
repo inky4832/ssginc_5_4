@@ -1,0 +1,1121 @@
+Reactjs 강좌정리
+
+1. 개요
+
+  - facebook 제공
+  - 프런트엔드 프레임워크 ( React.js, Vue.js, Angular )
+     ==> JS 기반
+  - MVC 패턴에서 V 담당.
+  - 가상 DOM 이용해서 빠른 DOM 처리가 가능.
+  - 개발방법 2가지 
+    가. 함수형 
+       - 현재 개발 방법
+       - 일반함수 가능
+         arrow 함수 가능
+       - 클래스 컴포넌트에서만 사용가능한 문법들이 있었음.
+         버전업되면서 함수에서도 사용가능하도록 문법지원(hooks 지원)
+
+    나. 클래스
+       - 과거에 주로 사용됨.
+       
+
+2. React 종류 3가지
+
+   1) CSR ( Client Side Rendering )
+     - 웹브라우저에서 화면을 만들고 랜더링하는 방식.
+     - 일반적으로 React.js 라고 부름. 
+
+   2) SSR ( Server Side Rendering )
+     - JSP처럼 서버에서 화면을 만들고 웹브라우에 응답하여 랜더링되는 방식.
+     - 일반적으로 next.js 라고 부름.
+
+   3) Reactive native
+     - 모바일용 React 의미.
+
+
+2. 환경설정
+
+  1) node.js 설치
+    - node --version
+
+  2) VSC 설치
+  3) VSC 플러그인
+    - Reactjs Snippets ( 함수형 기능 제공 )
+
+  4) 크롬 React 확장팩 설치
+
+3. React 프로젝트 생성
+
+  - https://ko.legacy.reactjs.org/docs/create-a-new-react-app.html#createreact-app ( react.js 문법 )
+    https://react.dev/learn/start-a-new-react-project  ( next.js 문법 )
+
+   1) 리액트 툴체인
+     - facebook 공식 개발툴이고 CSR만 지원됨.
+     - 요즘에는 vite 개발툴도 있음.
+
+   2) 방법
+
+    문법:  npx create-react-app 프로젝트명
+
+    가. 설치
+     npm install npm -g  <== npx create-react-app 실행시 에러날때.
+
+     npx create-react-app my-app
+     cd my-app
+     npm start
+
+    나. my-app 폴더 생성
+
+    다. reactjs 버전 변경
+
+       - maven의 pom.xml 역할의  package.json에서 변경
+
+        "react": "^18.3.1",  ------------> "^18.2.0"
+       "react-dom": "^18.3.1", ------------> "^18.2.0"
+
+       - npm install  실행하여 변경사항을 적용시킴. ( my-app 디렉터리안에서 )
+
+   3) 실행
+
+       cd my-app
+       npm start
+
+
+         Local:            http://localhost:3000        
+         On Your Network:  http://10.10.10.187:3000     
+
+4. my-app 프로젝트 구조
+
+  my-app
+     node_modules ( maven의 .m2 저장소 역할 )
+     public
+       - index.html ( 메인 홈페이지 화면,  화면을 구성하는 특정 js (index.js)파일을 이용해서 화면 랜더링함. )
+     src
+       - index.js ( App.js 를 import 해서 App.js의 화면을 랜더링 함 )
+       - App.js   ( 결론적으로 App.js에서 화면 구축하면 됨 )
+
+     package.json ( maven의 pom.xml 기능 )
+     README.md  ( 실행 명령어 제공 )
+
+   ==> 변경된 의존성을 갱시하려면 npm install 명령어를 실행해야 된다.
+  
+   ==> *.js 마다 *.css 만드는 것이 일반적인 방법임.
+
+5. public  vs src
+ 
+  ==> 이미지 저장 가능하는 폴더임
+
+  1) public
+     - 외부에서 접근이 가능
+     - build할 때 누락될 수 있음. 따라서 권장안함.
+
+  2) src
+     -assets 폴더에 저장.
+     -외부에서 접근 불가 ( private)
+     - build할 때 누락없이 빌드 가능.
+
+
+6. 컴포넌트(component)
+
+ 1) 개념
+   - 일반적으로 하나의 *.js 파일이 화면 하나를 구성.
+   -웹 화면에서 보여지는 개별적인 블럭 의미. ( JSP의 top.jsp,menu.jsp,bottom.jsp 비슷 )
+   -일반적으로 *.js 파일로 구현됨. 
+   -*.js 당 *.css 형태로 구현됨. 
+    사용방법은 import './App.css' 형식을 사용함.
+
+   -일반적으로 중첩된 형태(계층구조)로 구현됨.
+   
+ 2) 컴포넌트 종류 2가지
+
+   가. 함수형 컴포넌트
+     - 현재 거의 개발할 때 사용됨.
+
+     예> 
+         //함수선언식 ( 이름있는 함수)
+	 function fun(){}
+
+         //함수표현식 ( 익명 함수 )
+	 const fun = function(){};
+
+	 //arrow 표현식
+	 const fun = ()->{};
+
+   나. 클래스 컴포넌트
+      - skip함
+
+ 3) 함수형 컴포넌트
+  
+  가. 함수명은 반드시 대문자로 지정해야 된다. (***************)
+    이유는 일반태그가 아닌 React 컴포넌트임을 알려주기 위함.
+
+    예>  function App(){}
+        function Person(){}
+	function Menu(){}
+
+  
+      컴포넌트 사용: <App />
+                 <Person />
+		 <Menu />
+
+  나. 반드시 return 해야 된다.
+
+   예> function Person(){
+   
+         return(
+	    //JSX 코드 작성 <=== 화면에 랜더링됨.
+	 );
+      }
+
+  다. 외부에서 사용할려면 반드시 export 해야 된다.
+
+   - export 사용하는 경우
+
+     예>
+        export {Menu, Bottom};
+
+
+	import {Menu, Bottom} from './components/XXX.js'
+
+
+   - export default 사용하는 경우
+
+    예> 
+        export default Menu;
+
+        import Menu from './components/XXX.js'
+
+7. JSX
+
+  1) 개요
+   - JSX( Javascript XML ).
+   - 웹브라우저에 랜더링되기전에  html 로 변환됨. ( babel 도구 이용 )
+     즉 JSX는 웹브라우저에서 직접 사용이 불가능한 비표준문법임.
+
+  2) 특징
+  
+    - 반드시 root태그가 있어야 됨.
+    - 반드시 종료태그가 있어야 됨. 예> <br></br>
+    - JSX에서 JS의 변수값등을 출력할 때는 {변수값} 사용한다.
+    - {변수값}는 산술연산자,비교연산자,논리연산자,3항연산자 사용 가능.
+    - 논리값(true/false) 와 null, undefined는 {변수값} 사용시 출력이 안됨.
+      + && 결합해서 조건부 랜더링을 사용할 수 있음.
+      예> { true  && <Menu/>}
+    - CSS 적용하는 방법
+       가. html의 class 속성
+         - class 속성명 대신에 className을 사용해야 된다.
+	 예> <div className="xxx">
+
+       나. html의 <label for=""> 속성
+          - for 속성명 대신에 htmlFor을 사용해야 된다.
+          예> <label htmlFor="xxx">
+
+       다. html의 style 속성
+         - style 사용할 때는 반드시 중첩 중괄호를 사용해야 된다.
+	  예> 
+	      var css = {key:value, key:value};
+	  
+	     <div style={css}
+             <div style={{key:value, key:value}}
+
+       * 주의할점
+        이전 css 문법의 사용했던 케밥표기법( font-size, background-color)대신에
+	카멜표기법( fontSize, backgroundColor )을 사용해야 된다.
+
+         예> <div style={{fontSize:"red", backgroundColor:"yellow"}}
+
+
+    - && 이용한 조건부 랜더링 ( ******************** )
+
+      예> { 변수 && <Menu />} <=== 변수 true 이면 <Menu /> 컴포넌트가 랜더링됨.
+                                     false 이면 <Menu /> 컴포넌트가 랜더링안됨.
+
+
+    - {...변수} 형식의 spread 연산자 사용 가능
+
+    - 이벤트 구현식 이벤트핸들러는 카멜표기법을 사용해야 된다.
+
+     예> <button onClick={go}>OK</button>
+
+     - JSX 주석
+       {/*  JSX 주석 */}
+
+   ==> 결론은 JSX에서 JS 사용할때는 반드시 {} 사용한다.
+
+
+8. image 사용하기
+
+  - 반드시 src 폴더에 저장하고
+    import 해서 사용 권장.
+
+  - 실습
+    가. src/assets 폴더 생성
+    나. 이미지 저장
+    다. import 해서 이미지 사용
+
+     예>
+        import daum from './assets/daum.png';
+
+	<img src={daum} width="100" height="100" />
+
+
+9. props 
+
+ 1) 용도
+  
+   - 화면 레이아웃이 중첩된 형태로 되어있고
+     이때 부모 컴포넌트에서 자식 컴포넌트에게 데이터를 전달할 때 사용하는 방법. ( 단방향 )
+
+ 2) 특징
+   - 단방향 ( 부모에서 자식으로만 전달 가능 )
+   - 전달되는 데이터 종류 제한이 없음.
+   - 필수가 아닌 옵션
+
+ 3) 문법
+
+  가.  속성(property)이용
+   예> 
+       <Child  key1={값|변수}  key2={값|변수}    />
+
+       function Child(파라미터){  <==== JSON 으로 전달됨. {key1:값, key2:값 }
+       }
+       function Child({key1, key2}){  <==== 객체분해할당
+       }
+       function Child({key1, key2}=값){  <==== default 파라미터
+       }
+
+
+  나. body 이용
+
+   예>
+       <Child>
+          값(문자열, JSX)
+       </Child>
+       
+       function Child(파라미터){  <==== JSON 으로 전달됨. {key1:값, key2:값 }
+          body는 파라미터.children 으로 얻음.
+       }
+
+
+10. 이벤트 처리
+
+ 1) 개요
+  - 이벤트 핸들러 (이벤트함수)는 함수 컴포넌트안에서 정의함.
+
+    예>   
+        // 함수 컴포넌트
+        function App(){
+		
+          // 이벤트 함수
+	  function go(){}
+
+	  
+	   return(
+	      // JSX
+	   );
+
+	}
+  
+  - JSX에서 이벤트 처리는 카멜표기법(onClick, onChange, ...) 을 사용해야 된다.
+  - 기본문법 2가지
+
+   가. 이벤트함수명 이용 ( 콜백 방식 )
+    -onClick={이벤트함수명}
+    예> onClick={go}
+
+    - 이벤트객체는 자동으로 전달됨.
+
+   나. arrow 함수 이용
+    - onClick={arrow함수}
+    예> onClick={()=>go(값)}
+
+    - 명시적으로 함수 호출
+    - 이벤트객체는 자동으로 전달 안됨. 명시적으로 전달해야 된다.
+      예> <button onClick={(e)=>handleEvent1(e)}>OK3</button>
+
+  
+ 2) 이벤트 객체 사용 가능
+
+   - e.preventDefault();
+
+   - e.stopPropagation();
+
+ 
+
+ 3) 계층구조 이벤트 처리
+
+  - 부모의 있는 함수를 자식에게 전달 가능하다.
+    이 방법을 이용하면 자식이 부모에게 데이터 전달이 가능해진다. ( 계층적 이벤트 + props 이용 )
+
+  * 최종정리
+                props
+     부모-------------------------------> 자식
+        <------------------------------
+	      계층적이벤트 + 파라미터
+
+11. 배열 반복 (***************)
+
+import logo from './logo.svg';
+import './App.css';
+
+  /////////////////////////////////////
+  const userList = [{username:"홍길동1",age:20, address:"서울1"},
+                    {username:"홍길동2",age:50, address:"서울2"}, 
+                    {username:"홍길동3",age:60, address:"서울3"}  
+                   ];
+
+  // js 
+  var result = userList.map(function(data, idx){
+       console.log(data,idx);
+       return data;
+  });
+
+  var result = userList.map((data, idx)=>{
+    return data;
+  });
+
+  var result = userList.map((data, idx)=>data);
+
+  console.log(result);
+
+  /////////////////////////////////// 
+
+// 컴포넌트
+function Avatar({username, age, address}){
+
+  return(
+     <span className="Avatar">
+         이름:{username}, 나이:{age}, 주소:{address}
+     </span>
+  );
+}
+function App() {
+
+ function handleEvent(){
+
+ }
+
+  return (
+    <div className="App">
+        <h2>1.배열의 첨자이용해서 개별접근</h2>
+        회원1: 이름:{userList[0].username}, 나이:{userList[0].age}, 주소:{userList[0].address}<br></br>
+        회원2: 이름:{userList[1].username}, 나이:{userList[1].age}, 주소:{userList[1].address}<br></br>
+        회원3: 이름:{userList[2].username}, 나이:{userList[2].age}, 주소:{userList[2].address}<br></br>
+
+        <h2>2.Avatar 컴포넌트 이용</h2>
+        회원1: <Avatar {...userList[0]} /><br></br>
+        회원2: <Avatar {...userList[1]} /><br></br>
+        회원3: <Avatar {...userList[2]} /><br></br>
+
+
+        <h2>3.배열의 첨자 반복</h2>
+        {/*
+             var result = userList.map(function(data, idx){
+                console.log(data,idx);
+                return data;
+            });
+
+            var result = userList.map((data, idx)=>{
+              return data;
+            });
+
+            var result = userList.map((data, idx)=>data);
+
+         */}
+        {
+               userList.map((data, idx)=>{
+                  return <div key={idx}>회원{idx+1}: 이름:{data.username}, 나이:{data.age}, 주소:{data.address}</div>
+               })
+        }
+         <h2>4. Avatar 반복1</h2>
+         {
+               userList.map((data, idx)=>{
+                  return <> 
+                           <Avatar key={idx}  username={data.username}  age={data.age}  address={data.address}/><br></br>
+                         </>
+               })
+        }
+        <h2>4. Avatar 반복2</h2>
+         {
+               userList.map((data, idx)=>{
+                  return <> 
+                           <Avatar key={idx}  {...data} /><br></br>
+                         </>
+               })
+        }   
+
+    </div>
+  );
+}
+
+export default App;
+
+#############################################################################################
+12. hooks
+
+ 1) 개요
+   이전에는 클래스에서만 사용할 수 있는 기능이 있었음. 
+   따라서 함수에서는 사용할 수 없었기 때문에 클래스 컴포넌트가 많이 사용되었음.
+   React 16.8 이후부터는 클래스에서만 사용했던 기능을 함수에서도 사용할 수 있도록 지원됨. <==== 이것을 hooks 이라고 부름.]
+
+ 2) 종류
+
+   - useState
+   - useRef
+   - useEffect
+   - useContext
+   - useMemo
+   - useCallback
+   ...
+
+  주의할점은 반드시 최상위 함수(컴포넌트)에서만 사용 가능하고
+  일반 함수, 반복문, 조건문등에서는 사용 불가.
+
+ 
+13. 상태값(state) 관리
+
+   1) 개요
+     props는 자식이 변경이 가능할까? 불가능하다. readonly 특성을 가짐.
+     state 는 변경이 가능하고 변경이 되면 자동 재랜더링이 된다. (*****************)
+     state 에 저장되는 값은 JS의 모든 데이터 가능 ( 문자,숫자,JSON,배열등 )
+
+   2) 사용방법
+
+     가. import
+
+       import {useState} from 'react';
+
+
+     나. 함수 컴포넌트안에서 useState 사용
+     
+        const [ 변수  ,  set메서드] = useState(변수초기값);
+
+	변수를 변경하기 위해서는 반드시 set메서드를 사용해야 된다.
+
+	예> const [num, setNum] = useState(0);
+	   const [arr, setArr] = useState([]);
+	   const [user, setUser] = useState({id:'',pw:''});
+
+     다. 값 변경
+        반드시 set메서드로 state 값을 변경해야 된다.
+
+        예> setNum(num+1);
+
+     라. JSX에서 state 사용
+
+        문법: {변수}
+
+        예> 값: {num}
+
+   
+    3) 배열 또는 json 데이터인 경우의 state 처리 (**************************)
+
+      - 반드시 불변객체로 작성해야 된다.
+       불변객체? 배열 또는 JSON내의 값을 변경하는 방식이 아닌
+              값을 변경한 새로운 배열 또는 JSON을 만들어서 state에 설정하는 것을 의미.
+
+
+      - 구현 방법
+
+        가. 배열 또는 JSON 복사본을 만듬.
+	   ==> 가장 쉽게 복사본을 만드는 방법은 spread 연산자를 이용한다.
+
+	나. 새로 생성된 배열 또는 JSON 수정
+
+	다. state 에 새로 생성된 배열 또는 JSON을 저장
+
+
+     4)  state + <input> 사용시 구현 패턴
+
+       - 사용자가 입력하는 값은 기본적으로 html 태그의 value 속성에 저장됨.
+         이때 value={state} 형식으로 사용하면, 사용자가 입력하는 값이 지속적으로 화면에 랜더링이 되어야 하는데
+	 문제는 state 값이 변경되지 않았기 때문에 재랜더링이 안된다.
+	 따라서 value값과 state 값을 일치시키기 위해서 즉 state값을 입력값으로 변경시키기 위해서
+	 onChange 이벤트로 state 값을 변경시켜주는 코드가 필요하다.
+
+
+14.  ref
+
+   1) 개요
+
+    - 일반적으로 JSX 참조할 때 사용됨.
+    - 드물지만 일반값 저장도 가능
+
+   2) 사용방법
+
+      가.  import
+
+          import {useRef} from 'react';
+
+      나.  useRef 사용
+
+          let  xxx = useRef(기본값);
+
+      다.  JSX에 ref 설정
+
+         예> <input  ref={xxx} />
+	    <Child ref={xxx} />
+            <Child ref={xxx=>xxx} />
+
+      라.  JSX 접근 방법
+
+           xxx.current  속성으로 참조 가능
+
+	 
+   3) 부모에서 자식을 참조 가능
+      https://react.dev/reference/react/forwardRef
+
+     - <Child ref={xxx}  userid="홍길동" />
+       ref 속성은 미리 정의된 속성이기 때문에 Child 자식 컴포넌트에서 props로 ref를 전달할 수 없음.
+       Child 컴포넌트에서 App인 부모에서 전달하는 ref 를 얻기 위해서는 forwardRef() 메서드를 사용해야 되고
+       props와 ref를 따로 얻어야 된다.
+
+       예> 
+            const Child=forwardRef(  
+		    (props, ref)=> {    // props와 ref를 따로 받아야 됨.
+		     console.log(props, ref);
+		    return (
+		      <div className="Child">
+			<h2>Child컴포넌ㅌ</h2>
+			아이디:<input  />
+		      </div>
+		     );
+		  } );
+
+   4) 부모에서 자식의 메서드 호출
+     https://react.dev/reference/react/useImperativeHandle
+
+      # 자식 컴포넌트
+	      const Child=forwardRef(  
+	    (props, ref)=> {
+	     console.log(props, ref);
+
+	      const input_ref = useRef(null);
+
+	    // 방법1: 외부에서 작성된 함수 선언식 이용 
+	    useImperativeHandle(ref, ()=>({open2})); // ({함수명,함수명2})
+	     //App에서 호출
+	     function open2(){
+	       console.log("open 메서드");
+	     }
+
+	     // 방법2: return {} 안에서 작성된 함수 선언식 이용 
+	     // https://react.dev/reference/react/useImperativeHandle 참조할 것.
+	     useImperativeHandle(ref, ()=>{
+		return {
+		  open(x){
+		    console.log("open 메서드 >>>>>>>>>>>>>>", x);
+		  },
+		  close(){
+		    console.log("close 메서드 >>>>>>>>>>>>>>");
+		  },
+		  input_value(){
+		    return input_ref.current.value;
+		  }
+		}
+	     });
+
+
+	    ////////////////////////////////////
+	    return (
+	      <div className="Child">
+		<h2>Child컴포넌ㅌ</h2>
+		mesg:{props.mesg}<br></br>
+		아이디:<input  ref={input_ref}/>
+	      </div>
+	     );
+	  } );
+	  
+	  export default Child;
+
+    # 부모 컴포넌트
+     function App() {
+
+	  const xxx = useRef(null);
+
+	  function handleEvent(){
+	    // console.log("Child input값 출력:", xxx.current.value);
+	    console.log("Child input값 출력:", xxx.current.input_value());
+
+	    //Child open 메서드
+	    xxx.current.open(100);
+	    xxx.current.close();
+	  }
+
+	  return (
+	    <div className="App">
+	      <h2>App 컴포넌트</h2>
+	      <Child ref={xxx} mesg="hello" /><br></br>
+	      <button onClick={handleEvent}>Child의 input값 얻기</button>
+	    </div>
+	  );
+	}
+
+	export default App;
+
+
+   5) 모달 창
+
+    https://developer.mozilla.org/ko/docs/Web/HTML/Element/dialog 참고
+
+
+
+15.  Context
+   https://react.dev/reference/react/createContext    <== 부모
+   https://react.dev/reference/react/useContext       <== 자식
+   1) 개요
+
+     - prop drilling 현상 방지.
+     - lifting state up 패턴 기반.
+
+   
+   2) 구현
+
+     # 부모 작업
+      
+       import {createContext, useState} from 'react';
+
+      - 저장소 생성
+       
+         const UserContext = createContext(기본값);  // 컨텍스트명은 대문자로 지정함. 컴포넌트 형태로 사용됨.
+
+      - state 생성
+
+          const [name, setName] = useState('홍길동');
+    
+
+      - 자식컴포넌트가 사용할 수 있도록 설정
+
+         function App(){
+
+	   return(
+              <UserContext.Provider value={name}>
+                 <Child />
+              </UserContext.Provider>
+	   );
+
+	 }
+
+
+
+     # 자식 작업
+
+       import {useContext} from 'react';
+
+
+       const value = useContext(UserContext);
+
+
+
+16.  side effect ( 부수 효과 )
+
+  1) 개요
+    현재 랜더링되는 기본적인 프로세스에 영향을 미치지 않는 특별한 기능처리 담당.
+
+  2) 문법
+  
+     import {useEffect} from 'react';
+
+
+     useEffect( 부수함수   , [변수값]|[] );
+
+  
+  3) 옵션에 따른 실행 
+
+    - [] : 부수함수가 단 한번 실행.
+
+    - [state] : state가 변경되면 부수함수가 재실행됨.
+
+    - [] 지정안함: App가 재랜더링 될 때 부수함수가 재실행됨.
+
+  
+  4) 특징
+
+    - 부수함수는 바로 실행되지 않고 App가 모두 실행되어 랜더링이 끝난후 실행됨.
+
+  
+  5) clean-up
+
+    - return cleanup기능함수;
+    - cleanup 함수는 맨 처음 실행할 때 실행안됨. 
+      다음 부수함수가 실행되고 실행된다.
+
+    - [] 빈배열 옵션을 사용하게 되면 clean-up는 작동되지 않는다.
+
+
+17. 서버연동
+
+  1) 사용방법 
+   - async/await fetch 함수 
+     ==> JS에서 기본적으로 제공하는 함수
+
+   - 외부 라이브러리
+     ==> axios
+
+       npm install axios
+
+
+   2) 서버연동하는 코드는 외부 파일로 작성하고 필요시 import 해서 사용하자.
+
+     예> HttpService.js
+         export async function fetchUserList(n){
+
+	    var url = `https://reqres.in/api/users?page=${n}`;
+	    var  response = await fetch(url);
+	    var json = await response.json();
+	    var userList = json.data;
+	    return userList;
+	}
+
+	export async function fetchUserUpdate(){
+
+
+	}
+
+	export async function fetchUserSave(){
+
+
+	}
+
+
+    3) 예외처리
+
+      가. 예외처리용 컴포넌트 작성
+         ==> 예외발생시 랜더링됨.
+
+       export  function ResponseError(){
+	    return(
+	       // 예외메시지
+	    );
+	 }
+
+   
+    4) 삭제하기
+      - 로컬에서만 삭제가 됨.
+
+
+     5) 추가하기
+      - SPA ( Single Page Application )
+
+###############################################################
+18. 라우팅 기본
+
+  1) 참조 사이트
+    http://reactrouter.com
+
+   
+  2) 설치
+
+    npm install react-router-dom
+
+    package.json 파일에 다음과 같이 추가됨.
+
+    "react-router-dom": "^6.24.1"
+
+   3) 라우팅 1
+
+      # App.js 수정
+
+       import logo from './logo.svg';
+	import './App.css';
+
+	import { createBrowserRouter, RouterProvider} from 'react-router-dom';
+
+
+	const router = createBrowserRouter([
+	  {
+	    path:"/",
+	    element:<div>Hello World</div>   <== JSX
+	  },  
+	 
+	]);
+
+	function App() {
+	  return (
+	    <RouterProvider router={router} />
+	  );
+	}
+
+	export default App;
+
+
+
+  3) 라우팅 2 - 컴포넌트 이용해서 랜더링
+
+      # Home.js 작성
+
+       / 로 요청시 <Home /> 랜더링
+
+      
+      # Products.js 작성
+
+      /products 로 요청시 <Products /> 랜더링
+
+
+     # App.js 수정
+
+       const router = createBrowserRouter([
+	  {
+	    path:"/",
+	    element: <Home />
+	  },
+	  {
+	    path:"/products",
+	    element: <Products />
+	  },
+	]);
+
+
+   3) 라우팅 3 - 컴포넌트간 연결(링크)
+    
+     - 이전 방식은 <a href=""> 사용 했으나
+       React에서는 <Link to=""> 사용함.
+
+     - 차이점
+      
+        # a 태그
+          - 전체페이지가 새롭게 랜더링되기 때문에 네트워크 동작이 발생됨.
+
+	# Link 태그
+	   - 내부적으로 화면을 랜더링하기 때문에 네트워크 동작이 발생 안됨.
+
+         ==> 크롬개발자 도구 Network 항목에서 확인이 가능함.
+
+   3) 라우팅 4 - 메뉴 역할의 컴포넌트 작성
+
+     https://reactrouter.com/en/main/start/tutorial#nested-routes
+     ---------------------------------
+
+        홈   products         로그인 회원가입
+    ---------------------------------
+
+
+    4)라우팅 5 - 404 예외처리
+
+     https://reactrouter.com/en/main/start/tutorial#handling-not-found-errors
+
+
+
+    4)라우팅 6 - menu의 링크 활성화
+
+     - 현재는 <Link to="">로 사용되어 사용자가 어떤 링크를 선택했는지 모름.
+     - <NavLink>로 사용하면 className 속성에 자동으로 상태를 제공함.
+       이 상태값으로 css 적용할 수 있음.
+
+   
+   4)라우팅 7 - 프로그래밍으로 라우팅 처리
+
+      import { Link, useNavigate} from 'react-router-dom';
+	function Home(){
+
+	  const navigate = useNavigate();
+
+	   function handleEvent(){
+	      navigate("/products");
+	   }
+    
+
+      <button onClick={handleEvent}>products로 가기(프로그래밍)</button>
+
+    4)라우팅 8 -  동적 라우팅 ( 파라미터 전달 방법 )
+
+      가. pathVariable 방식
+         - url에 포함되어 파라미터 전달
+            예> /users/2
+  
+             { path:"/users/:id" }
+
+	     useParams() 이용
+
+
+      나. queryString 방식
+         - url에 포함되지 않고 ?key=value 형식이용
+	    예> /users?id=2
+
+              { path:"/users" }
+
+
+            useSearchParams() 이용
+
+19. 라우팅 심화
+
+
+  1) loader
+     - 링크를 통한 컴포넌트가 생성되기 전에 실행됨.
+       실행되어 컴포넌트에 데이터를 전달해서 랜더링함.
+     - 컴포넌트에서는 useLoaderData() 훅 이용해서 loader 함수가 리턴한 값을 얻음.
+     - loader함수가 리턴하는 loader 데이터는 지정된 컴포넌트 및 하위 컴포넌트에서 사용이 가능하다.
+     - params 및 request 파라미터로 PathVariable 및 QueryString 값을 얻을 수 있음.
+
+     - id 사용
+
+         path:"/"
+	 component: <RootLayout />
+	  id:'root',
+	 loader:~
+	 childrend:[
+	    {
+	      path:"/users",
+              component:<Users/>
+	      loader:~
+
+         ==> 부모의 loader를 얻기위해서는 id 이용 +  const user = useRouteLoaderData("root");
+
+  2) action
+  
+      - loader 함수를 사용하여 컴포넌트가 랜더링 전에 필요한 정보를 얻을수 있듯이
+        action 함수를 사용하면 사용자 입력폼의 데이터를 서버에 전송할 수 있다.
+
+################################################################################
+
+
+20. Tanstack Query
+
+    https://tanstack.com
+
+   1) tanstack query 설치 및 사용
+
+     npm install @tanstack/react-query
+
+
+        import {
+	  useQuery,
+	  useMutation,
+	  useQueryClient,
+	  QueryClient,
+	  QueryClientProvider,
+	} from '@tanstack/react-query'
+
+
+   2) useQuery
+      - select 작업시
+
+   3) useMutation
+      - insert/update/delete 작업시
+
+   4) useEffect + fetch API 코드를 다음과 같이 수정
+
+      # Users.js
+       import {
+	  useQuery,
+	  useMutation,
+	  useQueryClient,
+	  QueryClient,
+	  QueryClientProvider,
+	} from '@tanstack/react-query'
+
+	       // TanStack query
+	  // useQuery는 조회할 때 사용
+	  const {data,isLoading, isError, error} = useQuery(
+	    { queryKey: ['todos'], 
+	      queryFn: fetchEvent }
+	    )
+
+	   //화면출력 코드
+	    let content;
+	    if(isLoading){
+	      content = "로딩중입니다.";
+	    }
+			    if(error){
+			      content = "에러 발생됨";
+			    }
+			    if(data){
+			      content= <UserList data={data}/> 
+			    }
+			    return(
+				<>
+				<h2>Users</h2>
+				{content}
+			      </>
+			    );
+			}
+
+			export default Users;
+  
+         # App.js
+	      import {
+		  useQuery,
+		  useMutation,
+		  useQueryClient,
+		  QueryClient,
+		  QueryClientProvider,
+		} from '@tanstack/react-query'
+
+ 
+               // Create a client
+		const queryClient = new QueryClient()
+
+		function App() {
+		  return (
+		    <QueryClientProvider client={queryClient}>
+		       <RouterProvider router={router} />
+		    </QueryClientProvider>
+		  );
+		}
+
+		export default App;
+
+    
+        5) useQuery 옵션
+
+         기본적으로 Tanstack query는 다른화면에 갖다오면 자동으로 fetch가 된다.
+	 이 동작으로 서버의 변경사항을 비동기적으로 클라이언트와 동기화가 가능하다. (***********)
+	 이 작업을 다음 2개의 옵션으로 조절이 가능하다.
+
+	   staleTime: 0 (기본) ,  1/1000 초
+
+	      예>  staleTime: 5000  (5초),  5초안에서는 fetch가 재동작 안함.
+
+
+           gcTime: 5분 (기본), 1/1000 초,  fetch해서 받은 캐시데이터를 보관하는 시간.
+
+
+     6) useMutation
+      
+      https://tanstack.com/query/latest/docs/framework/react/guides/mutations
+
+  
+      * 생성/수정/삭제하고 useQuery 사용하면 갱신이 기본적으로 갱신이 안됨.
+        이유는 cache로 동작되기 때문이다.
+	따라서 cache를 무효화해줘야 다시 서버에서 fetch하게 된다.
+
+
+     7) React Router의 loader 함수 및 action 함수에서 Tanstack Query 사용
+
+  
+
+//////////////////////////////////////////////////////////////////
+SpringBoot 실행실습
+
+1. 강사용 github의 todo_boot_security_jwt_mysql 저장소를 clone 하기
+
+     가. sts의 workspace 가기 
+      
+      cd C:\springboot_study\sts-4.22.1.RELEASE\workspace
+
+     나. clone 명령어
+
+      git clone https://github.com/inky4832/todo_boot_security_jwt_mysql.git
+
+     다. sts import 
+
+      import > maven > maven exists project 선택ㄴ
+
+2.  schema.sql 이용해서  member와 todo 테이블 작성
+3.  data.sql 이용해서  todo에 데이터 저장.
+4.  프로젝트 실행하고 크롬열고 Talend Test API 열기
+
+    요청할 context명은 todo 임
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+
+# 2024 리액트 추천 외부 라이브러리 목록
+https://ykss.netlify.app/translation/react_libraries_for_2024/
