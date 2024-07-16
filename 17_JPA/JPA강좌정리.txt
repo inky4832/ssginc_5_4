@@ -1,0 +1,155 @@
+ JPA ( Java Persistence API ) 개요 
+ - 버전업된 경우에는 ( Jakarta Persistence API ) 임.
+
+ 1. 특징
+  - ORM 프레임워크 ( Object-Relational Mapping) 
+   ==> 자바의 클래스(엔티티,entity)를 이용해서 DB의 테이블를 자동생성. ( 자바의 클래스와 DB 테이블이 맵핑됨)
+       자바의 메서드가 DB의 SQL를 자동 실행함. ( 자바의 메서드와 DB의 SQL이 맵핑됨 )
+
+  - 이전의 mybatis는 SQL mapper 임. ( 명시적으로 sql문이 지정된 태그를 알려주는 방식으로 사용 )
+
+
+  - JPA는 명세서임. ( 자바의 인터페이스와 같은 개념 )
+    JAP의 명세를 구현한 구현체들이 있음. ( 대표적으로 hibernate가 있음 )
+
+             JPA (인터페이스)
+	      |
+	      |
+	  hibernate(구현클래스)
+  
+      https://hibernate.org/
+      https://docs.jboss.org/hibernate/orm/7.0/introduction/html_single/Hibernate_Introduction.html
+
+  - Spring Data JPA ( 최종목표 )
+    ==> hibernate 기술을 개발자들이 쉽게 사용하도록 커스터마이징한 스프링 서브프로젝트임.
+
+    https://docs.spring.io/spring-data/jpa/reference/jpa/getting-started.html
+
+ 
+ 2. 환경설정
+
+   가. MySQL 설치
+   나. 의존성 설정
+
+       		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+                <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		</dependency>
+	    <dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.33</version>
+		</dependency>
+
+
+  다. application.properties 설정
+
+      # JPA 설정
+      spring.jpa.show-sql=true
+      spring.jpa.hibernate.ddl-auto=create|create-drop|update|validate|none
+
+       create     :  drop하고 create
+       create-drop:  create하고 프로그램 종료때 drop
+       update     :  기존 테이블과 변경상태만 반영
+       validate   :  엔티티와 테이블이 정상 매핑되었는지 확인만 함
+       none       :  사용안함.
+ 
+     이 옵션은 개발환경에서만 사용해야 된다.
+
+     # RDB Dialect 설정
+     spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+  라. 엔티티 작성
+
+     - DTO와 비슷
+
+     @Entity  // 테이블과 맵핑, 기본적으로 생성된 테이블의 이름은 클래스명을 따른다.
+     public class Member{
+
+         @Id  // 테이블의 pk 맵핑
+         long id;
+	 String name;
+	 int age;
+
+         //getter,setter
+	 //생성자
+	 //toString
+     }
+     
+     - 규칙
+       반드시 기본생성자 필수
+       final, enum,  interface, inner 클래스 사용불가
+       변수에 final 사용 불가
+##########################################################################################
+3. 객체와 테이블 맵핑
+
+  - @Entity : 테이블과 맵핑
+  - @Id     : pk와 맵핑
+  - @Table  : 생성되는 테이블의 정보 지정 가능
+              4.3. Mapping entities to tables 참조
+
+
+4. 변수(속성)와 컬럼 맵핑
+
+     4.5. Mapping to columns 참조
+
+        @Id
+	@Column(name = "member_id")
+	long id;
+	
+	@Column(name="name", length = 100)
+	String username;
+	
+	int age;
+	
+	@Column(unique = true, nullable = false)
+	String address;
+	
+	LocalDate hiredate;
+	
+	//3.11. Enumerated types 참조
+	@Enumerated(EnumType.STRING)
+	RoleType roleType;
+	
+	@Lob
+	String description;
+	
+	@Transient   
+	String email;  // 테이블의 컬럼에서 skip됨
+
+##########################################################
+5. 기본키 맵핑
+ 
+ 3.5. Generated identifiers 참조
+
+  - @Id: 테이블의 PK 역할.
+  - @GeneratedValue(strategy=GenerationType.IDENTITY) <==== mysql에서는 auto_increment로 생성됨.
+
+#######################################################################################
+6. 영속성 관리 
+
+ - @Entity로 지정된 객체를  영속성객체 라고 부름.
+ - 영속성 객체를 관리하는 객체는 EntityManager 임.
+   EntityManager를 생성해주는 객체는 EntityManagerFactory임.
+   
+   EntityManagerFactory는 한번만 생성하고 필요시 EntityManager를 생성해서 DB 연동함.
+   이때 주요한 특징은 EntityManager 객체를 thread-safe 하게 로컬변수 형태로 사용해야됨. (***********)
+   그리고 반드시 트랜잭션범위안에서 사용해야 된다. (***********)
+
+
+
