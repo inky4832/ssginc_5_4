@@ -183,14 +183,15 @@
 	      long id;
 	      String name;
 	 }
-
-                                               엔티티 컨텍스트                            DB(MySQL)
+              
+              tx.begin()                    엔티티 컨텍스트                            DB(MySQL)
        개발자 ------------------------->                            --------------->
  
              Member m = new Member();            Member(영속상태)
              ( 비영속 상태)
-                                    persist(m)                         commit() -----> insert문 생성
+                                    persist(m)                     tx.commit() -----> insert문 생성
 				                                                      
+    ===> Spring에서는 @Transactional 를 사용.
 
 8. 데이터 조회
  
@@ -262,3 +263,129 @@
       5) em.remove(m); ---------------------> Entity(101L,유관순)삭제 --------------> 6)delete문 생성
 
                                                                                     102L 이순신 남음
+
+
+										  
+11. 연관관계
+  https://docs.jboss.org/hibernate/orm/7.0/introduction/html_single/Hibernate_Introduction.html
+  3.15. Associations
+  1) 다대일 ( N:1 )
+
+      Memeber: Team
+
+      ==> Member 를 통해서만 Team으로 갈수 있음. 단방향
+                
+           Member *--------------------------1>Team
+         
+	  @ManyToOne
+	  @JoinColumn(name = "team_id")
+	  Team team;
+
+          fk 생성됨.
+
+
+      ==> Member와 Team 이 서로 참조 할 수 있음. 양방향 ( 주의할점은 toString() 임. 무한루프 가능성이 매우 높음 )
+          Member<----------------------------->Team
+						
+					      @Id
+					      @Columne(name="team_id")
+					      long id;
+          @ManyToOne                          @OneToMany(mappedBy="team")
+	  @JoinColumn(name = "team_id")       List<Member> members = new ArrayList<>();
+	  Team team;
+
+          fk 생성됨.
+
+        toString(){                            toString(){
+
+         return ~~~+"team:"+ team;                   return ~~~+"mamebr:"+ member;
+	}
+
+        
+
+
+  2) 일대일 ( 1:1 )
+
+     Member:Locker
+
+      ==> Member 를 통해서만 Locker으로 갈수 있음. 단방향
+                
+           Member *--------------------------1>Locker
+                                              @Id
+					      @Columne(name="locker_id")
+					      long id;
+	  @OneToOne                       
+	  @JoinColumn(name = "locker_id")
+	  Team team;
+
+          fk 생성됨.
+
+
+
+12. JPQL ( Java Persistence Query Language )
+
+  https://docs.jboss.org/hibernate/orm/7.0/querylanguage/html_single/Hibernate_Query_Language.html
+
+
+13. Spring Data JPA
+
+  - 이전 hibernate의 사용문법을 쉽게 사용할 수 있도록 커스터마이징한 Spring 서브 프로젝트임.
+
+  예> 기존 emp 테이블/ dept 테이블 사용
+  
+  1). application.properties
+
+    spring.jpa.hibernate.ddl-auto=none
+
+  2). 엔티티 생성하고 연관관계 설정
+     
+     Emp.java
+
+
+     Dept.java
+
+  3) 전체적인 아키텍쳐에 필요한 빈 작성
+                                                                  
+                                   EmpService
+    EmpController  --------------> EmpServiceImpl -----------> EmpRepository(******) ---> MySQL
+                                                                     
+								     Emp.java  <--------> emp테이블
+								     Dept.java <--------> dept테이블
+
+   * EmpRepository
+    - JPA에서는 인터페이스로 작성
+    - extends JpaRepository<엔티티명, @Id타입>
+
+    /*
+	 *   다음  메서드가 지원됨.
+	 *    findAll()
+	 *    findById()
+	 *    count()
+	 *    delete()
+	 *    deleteByid()
+	 *    
+	 *   이외의 변수로 조회하기 위해서는 추가로 메서드를 정의해야 된다. (Query Method 규칙을 따름 )
+	 *   https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
+	 * 
+	 */
+
+
+    4) 엔티티와 DTO                                     |
+                                                      | 
+                                  EmpService          |
+    EmpController  --------------> EmpServiceImpl -----------> EmpRepository(******) ---> MySQL
+                                                      |
+						      |
+					DTO	      |     Entity
+
+
+   DTO와 Entity 간 변환 외부라이브러리
+
+   -mapstruct, ModleMapper(*)
+
+   <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+<dependency>
+    <groupId>org.modelmapper</groupId>
+    <artifactId>modelmapper</artifactId>
+    <version>3.2.0</version>
+</dependency>
