@@ -53,3 +53,6 @@ https://esbook.kimjmin.net/
 /////////////////////////////////////////////////////////////////////////
 # SpringSecurity 와 Oauth 2.0 개념
 https://its-ward.tistory.com/entry/Spring-Security%EC%99%80Oauth-20-%EA%B0%9C%EB%85%90-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0
+
+# react + daum 주소 API 사용
+https://velog.io/@eunjios/react-daum-postcode-practice
