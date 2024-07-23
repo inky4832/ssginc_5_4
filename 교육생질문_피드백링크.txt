@@ -56,3 +56,6 @@ https://its-ward.tistory.com/entry/Spring-Security%EC%99%80Oauth-20-%EA%B0%9C%EB
 
 # react + daum 주소 API 사용
 https://velog.io/@eunjios/react-daum-postcode-practice
+
+# SpringBoot + Zxing 연동
+https://lucas-owner.tistory.com/55
