@@ -70,5 +70,12 @@ https://britny-no.tistory.com/32
 # http --> https 
 https://ngrok.com/
 
+만약 ngrok에서 6024 에러가 날때 해결 방법
+        headers: {
+          'Content-Type': `application/json`,
+          'ngrok-skip-browser-warning': '69420',
+        },
+https://velog.io/@se2id/ngrok-skip-browser-warning-ERRNGROK6024%EC%97%90%EB%9F%AC-Get%EC%9A%94%EC%B2%AD%EC%8B%9C-doctype-html-%EB%9C%B0-%EB%95%8C
+
 # mybatis에서  underscore로 된 컬럼을  Camel로 된 자바변수로 자동 맵핑
 mybatis.configuration.map-underscore-to-camel-case=true
