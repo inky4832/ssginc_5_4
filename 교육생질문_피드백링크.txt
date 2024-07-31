@@ -69,3 +69,6 @@ https://britny-no.tistory.com/32
 
 # http --> https 
 https://ngrok.com/
+
+# mybatis에서  underscore로 된 컬럼을  Camel로 된 자바변수로 자동 맵핑
+mybatis.configuration.map-underscore-to-camel-case=true
