@@ -79,3 +79,27 @@ https://velog.io/@se2id/ngrok-skip-browser-warning-ERRNGROK6024%EC%97%90%EB%9F%A
 
 # mybatis에서  underscore로 된 컬럼을  Camel로 된 자바변수로 자동 맵핑
 mybatis.configuration.map-underscore-to-camel-case=true
+
+
+# axios 
+import axios from 'axios';
+
+const apiClient = axios.create(
+  {  
+    baseURL:'https://reqres.in/'
+  }
+);
+
+export async function axiosUsersList() {
+  let resData;
+
+    const response = await apiClient.get("/api/users?page=2");
+    console.log(response)
+    if (!response === 200) {
+      console.log("fetchUsersList.ERROR")
+      throw new Error('usersList 요청 예외');
+    }
+     resData = await response.data.data;
+
+  return resData;
+}
