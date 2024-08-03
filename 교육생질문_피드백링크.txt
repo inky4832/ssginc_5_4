@@ -1,3 +1,5 @@
+# 쇼핑몰 구축 가이드
+https://support.cafe24.com/hc/ko/articles/7668080790937-%EC%87%BC%ED%95%91%EB%AA%B0-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0
 
 # 관리자 계정 인증 방식 
 https://techdocs.broadcom.com/kr/ko/symantec-security-software/endpoint-security-and-management/endpoint-protection/all/managing-groups-clients-and-administrators/managing-administrator-accounts-v17364367-d1e6/choosing-the-authentication-method-for-administrat-v9542292-d1e613.html
