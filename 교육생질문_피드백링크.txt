@@ -109,3 +109,23 @@ export async function axiosUsersList() {
 
   return resData;
 }
+
+# 장바구니 
+==> 장바구니와 장바구니 아이템을 분리해서 구현
+
+public class BasketDTO{
+
+     String basketId;
+     String userId;
+     ..
+     List<BasketItemDTO> items;
+
+    class BasketItemDTO{
+
+         String productId;
+         String productName;
+         ...
+
+    }
+}
+
