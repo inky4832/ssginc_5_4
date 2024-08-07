@@ -191,7 +191,7 @@ useEffect(() => {
 
     // 초기연결
     const eventSource = new EventSource(
-      'http://10.10.10.195:8080/api/stream/005930',
+      'http://10.10.10.195:8090/hello',
     )
     // 연결되었을때
     eventSource.onopen = () => {
