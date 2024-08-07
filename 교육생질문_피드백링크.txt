@@ -155,3 +155,62 @@ https://recoiljs.org/ko/
 - **성능** : Recoil > Zustand > MobX > Redux > Context API
 - **비동기 처리 지원** : Recoil > Zustand > Redux > MobX > Context API
 - **기존 프로젝트와의 호환성** : Redux > MobX > Zustand > Recoil > Context API
+
+
+# 웹소켓 vs SSE 
+WebSocket :  서버와 클라이언트 간에 Socket Connection을 유지해서 언제든 양방향 통신 또는 데이터 전송이 가능하도록 하는 기술
+SSE : Server-Sent-Event의 약자로, 서버에서 클라이언트로 실시간 이벤트를 전달하는 웹 기술
+웹소켓과 sse 의 큰 차이점은 웹소켓은 양방향이지만 sse 는 단방향이다
+
+## SSE
+
+장점
+
+1. HTTP 를 통해 통신하므로 다른 프로토콜은 필요없고, 구현이 쉽다
+2. 네트워크 연결이 끊겼을때 자동으로 재연결
+3. 실시간으로 서버에서 클라이언트로 데이터 전송가능
+
+단점
+
+1. GET 메소드만 지원하고, 파라미터를 보내는데 한계가 있다
+2. 단방향 통신이며, 한 번 보내면 취소가 불가능하다는 단점
+3. 클라이언트가 페이지닫으면, 서버에서 감지하기 어려움
+
+SSE의 실행 과정 
+
+1. 클라이언트가 서버의 이벤트를 구독하기 위한 요청을 보냄
+2. 서버에서는 클라이언트와 매핑되는 SSE 객체를 만듬
+3. 서버는 이벤트 스트림을 생성하고, 클라이언트에 비동기적으로 데이터 전송
+
+프론트에서 sse 를 이용하여 서버에서 받기
+useEffect(() => {
+    if (!window.EventSource) {
+      console.error('해당 환경에서 지원이 불가능 합니다')
+      return
+    }
+
+    // 초기연결
+    const eventSource = new EventSource(
+      'http://10.10.10.195:8080/api/stream/005930',
+    )
+    // 연결되었을때
+    eventSource.onopen = () => {
+      console.log('connection opened')
+    }
+    // 메세지 받았을 때
+    eventSource.onmessage = (event) => {
+      const data = event.data
+      const parsedData = data.split(':')
+      console.log(parsedData)
+
+      setPrice(parsedData[2])
+    }
+
+    // 에러 발생시
+    eventSource.onerror = (error) => {
+      console.error('EventSource failed:', error)
+      eventSource.close()
+    }
+
+    console.log(price)
+  }, [])
