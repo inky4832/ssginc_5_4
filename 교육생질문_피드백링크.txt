@@ -130,3 +130,28 @@ public class BasketDTO{
     }
 }
 
+# Chart 그리기
+https://echarts.apache.org/examples/en/index.html#chart-type-radar
+
+
+# 리액트 상태관리
+https://zustand-demo.pmnd.rs/
+https://recoiljs.org/ko/
+
+### 상태관리 라이브러리 기준
+
+- **커뮤니티 크기** : Redux > MobX > Recoil = Zustand > Context API
+- **러닝커브** : Redux > MobX > Recoil > Zustand > Context API
+- **프로젝트 크기**
+    - 큰 프로젝트 : Redux = MobX > Recoil > Zustand = Context API
+    - 중간 프로젝트 : MobX > Recoil = Zustand > Redux > Context API
+    - 작은 프로젝트 : Zustand > Recoil > MobX > Redux > Context API
+- **설치 및 설정 간편성** : Zustand > Recoil > Context API > MobX > Redux
+- **배우기 쉬운 정도** : Zustand > Recoil = Context API > MobX > Redux
+- **미들웨어 및 고급 기능 지원** : Redux > MobX > Recoil > Zustand = Context API
+- **중첩된 객체 또는 복잡한 상태 구조 관리** : MobX > Recoil > Redux = Zustand > Context API
+- **함수형 및 클래스형 컴포넌트 모두 지원** : MobX > Recoil > Zustand > Context API > Redux
+- **동기 및 비동기 업데이트 지원** : Recoil > Zustand > Redux > MobX > Context API
+- **성능** : Recoil > Zustand > MobX > Redux > Context API
+- **비동기 처리 지원** : Recoil > Zustand > Redux > MobX > Context API
+- **기존 프로젝트와의 호환성** : Redux > MobX > Zustand > Recoil > Context API
