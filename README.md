@@ -13,3 +13,11 @@ https://drive.google.com/drive/folders/1hJ4VQlODF5bAf_PwvHpZFTwEM9CA50yi?usp=sha
 
 # 2차 프로젝트 산출물 링크
 https://drive.google.com/drive/folders/1V3hPwOw_AtJeg-ZeouGmPPvUJerRQggt?usp=drive_link
+
+
+
+
+709745608741		sk206_004	1cHl8M4$	오하이오
+
+211125696061		sk210_002	lB8rFc4{	도쿄
+
